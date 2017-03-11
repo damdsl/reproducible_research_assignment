@@ -1,6 +1,9 @@
 ---
 title: "My assignment for reproducible research"
-output: html_notebook
+output:
+  word_document: default
+  pdf_document: default
+  html_notebook: default
 ---
 
 
