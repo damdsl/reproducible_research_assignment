@@ -11,7 +11,7 @@ This assignment makes use of data from a personal activity monitoring device. Th
 First, we fetch the dataset from the web and load it into our R environment.
 
 ```{r, echo = TRUE}
-directory <- "~/RR_assignment1"
+directory <- "figure"
 
 if(!file.exists(directory)) {
         dir.create(directory)
