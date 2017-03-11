@@ -1,9 +1,10 @@
 ---
 title: "My assignment for reproducible research"
 output:
-  word_document: default
-  pdf_document: default
+  html_document: default
   html_notebook: default
+  pdf_document: default
+  word_document: default
 ---
 
 
@@ -65,8 +66,15 @@ sum.df <- df %>%
         group_by(date) %>%
         summarise(sum.steps = sum(steps, na.rm = TRUE))
 
-# Plot the distribution
+# Plot the distribution for report
+hist(sum.df$sum.steps, breaks = 20, col = "grey", main = "Ref: plot1.png - Number of steps per day", xlab = "Sum of steps")
+```
+```{r, echo=FALSE, message=FALSE}
+
+# Output to png
+png(filename = "figure/plot1.png", width = 480, height = 480)
 hist(sum.df$sum.steps, breaks = 20, col = "grey", main = "Number of steps per day", xlab = "Sum of steps")
+dev.off()
 ```
 
 The sample distribution seems to be bimodal with one pic at 0 and one pic at about 10000 steps. Furthermore, we can identify that there are some outliers.
@@ -94,9 +102,15 @@ ts.df <- df %>%
         group_by(interval) %>%
         summarise(mean.steps = mean(steps, na.rm = TRUE))
 
-plot(x = ts.df$interval, y = ts.df$mean.steps, xlab = "interval", ylab = "number of steps", type = 'l')
+plot(x = ts.df$interval, y = ts.df$mean.steps, xlab = "interval", ylab = "number of steps", type = 'l', main = "Ref: plot2.png : Number of steps along the day")
 ```
 
+```{r, echo=FALSE, message=FALSE}
+# Output to png
+png(filename = "figure/plot2.png", width = 480, height = 480)
+plot(x = ts.df$interval, y = ts.df$mean.steps, xlab = "interval", ylab = "number of steps", type = 'l', main = "Number of steps along the day")
+dev.off()
+```
 
 ```{r, echo = TRUE}
 #Calculating the max number of steps
@@ -173,7 +187,13 @@ sum.df.imputed <- df.imputed %>%
         group_by(date) %>%
         summarise(sum.steps = sum(steps, na.rm = TRUE))
 
-hist(sum.df.imputed$sum.steps, breaks = 20, col = "grey", main = "Number of steps per day", xlab = "Sum of steps")
+hist(sum.df.imputed$sum.steps, breaks = 20, col = "grey", main = "Ref: plot3.png - Number of steps per day after imputing missing values", cex.main=0.8, xlab = "Sum of steps")
+```
+```{r, echo=FALSE, message=FALSE}
+# Output to png
+png(filename = "figure/plot3.png", width = 480, height = 480)
+hist(sum.df.imputed$sum.steps, breaks = 20, col = "grey", main = "Number of steps per day after imputing missing values", cex.main=1, xlab = "Sum of steps")
+dev.off()
 ```
 
 As expected, the number of values at 0 drops and individuals move towards the center of mass of the histogram. We confirm this information by calculating the mean and median of the distribution.
@@ -218,11 +238,21 @@ ggplot(ts.df.imputed, aes(x = interval, y = mean.steps, group = is.weekend, colo
         geom_point() +
         ylab("Average steps in one day") +
         xlab("One day (5 minutes interval)") +
-        ggtitle("Differences in walks between week and weekends")
+        ggtitle("Ref: plot4.png - Differences in walks between week and weekends")
         
 ```
 
-
+```{r, echo=FALSE, message=FALSE}
+# Output to png
+png(filename = "figure/plot4.png", width = 480, height = 480)
+ggplot(ts.df.imputed, aes(x = interval, y = mean.steps, group = is.weekend, colour = is.weekend)) +
+        geom_line() +
+        geom_point() +
+        ylab("Average steps in one day") +
+        xlab("One day (5 minutes interval)") +
+        ggtitle("Differences in walks between week and weekends")
+dev.off()
+```
 
 
 
